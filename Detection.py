@@ -59,7 +59,7 @@ print("loading face mask detector model...")
 maskNet = load_model("model.h5")
 
 #%%
-cap = cv2.VideoCapture(0, cv2.CAP_DSHOWs)
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
 while True:
     reg, frame = cap.read()
