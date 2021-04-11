@@ -26,7 +26,7 @@ def detect_and_predict_mask(frame, faceNet, maskNet):
     faceNet.setInput(blob)
     detections = faceNet.forward()
     
-    faces, locs, preds = [], [], []
+    locs, preds = [], []
     for i in range(0, detections.shape[2]):
         confidence = detections[0,0,i,2]
 		
@@ -42,11 +42,10 @@ def detect_and_predict_mask(frame, faceNet, maskNet):
             face = img_to_array(face)
             face = preprocess_input(face)
             face = np.expand_dims(face, axis=0)
-            faces.append(face)
+            pred = maskNet.predict(face)[0]
+
+            preds.append(pred)
             locs.append((startX, startY, endX, endY))
-            
-    if len(faces) > 0:
-        preds = maskNet.predict(faces)
         
     return locs, preds
 
